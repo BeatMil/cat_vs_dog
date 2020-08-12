@@ -16,6 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="cat_vs_dog"
+run/main_scene="res://scene/fight.tscn"
 config/icon="res://icon.png"
 
 [rendering]
