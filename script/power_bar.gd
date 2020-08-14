@@ -1,22 +1,21 @@
 extends Control
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var progress = $TextureProgress
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	$TextureProgress.value = 0
+	progress.value = 0 # set power to 0 at start
 
 
 func _on_Timer_timeout():
-	if $TextureProgress.value == $TextureProgress.max_value:
-		$TextureProgress.value = 0
+	# Timer is set to 0.02
+	# Should I set wait time here instead?
+	if progress.value == progress.max_value:
+		progress.value = 0
 	else:
-		$TextureProgress.value += 1
-
+		progress.value += 1
+#	progress.value += 1 if progress.value < progress.max_value else 0
+# the shorten if else is better used for assigning value
 
 func _on_Button_button_down():
 	$Timer.start()
@@ -24,3 +23,4 @@ func _on_Button_button_down():
 
 func _on_Button_button_up():
 	$Timer.stop()
+	progress.value = 0

@@ -19,6 +19,14 @@ config/name="cat_vs_dog"
 run/main_scene="res://scene/fight.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/always_on_top=true
+window/size/test_width=1024
+window/size/test_height=576
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

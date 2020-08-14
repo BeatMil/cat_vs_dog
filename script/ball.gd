@@ -1,10 +1,8 @@
 extends RigidBody2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var POWER = Vector2(400,-500)
+# x axis power should be around 0 - 1000
+var POWER = Vector2(1000,-500)
 
 
 # Called when the node enters the scene tree for the first time.
