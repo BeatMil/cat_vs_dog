@@ -10,8 +10,7 @@
 script = ExtResource( 3 )
 
 [node name="ball" parent="." instance=ExtResource( 4 )]
-position = Vector2( 368, 448 )
-sleeping = true
+position = Vector2( 480, 752 )
 
 [node name="cat" type="Sprite" parent="."]
 position = Vector2( 308.8, 736 )
@@ -30,4 +29,4 @@ margin_top = 576.0
 margin_right = 432.0
 margin_bottom = 576.0
 rect_scale = Vector2( 2, 2 )
-[connection signal="fire" from="power_bar" to="ball" method="_on_power_bar_fire"]
+[connection signal="fire" from="power_bar" to="." method="_on_power_bar_fire"]
