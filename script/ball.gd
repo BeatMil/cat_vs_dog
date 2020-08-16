@@ -3,14 +3,11 @@ extends RigidBody2D
 
 
 # x axis power should be around 0 - 1000
-var POWER = Vector2(100,-500)
+var POWER = Vector2(100,-800)
 
 func _ready():
-	
-#	set_gravity_scale(6)
-#	add_torque(5000)
-#	apply_central_impulse(POWER)
-	pass # Replace with function body.
+	set_gravity_scale(6)
+	add_torque(5000)
 
 
 func _physics_process(delta):
@@ -23,3 +20,7 @@ func apply_force2(fire_power):
 	POWER.x = fire_power
 	apply_central_impulse(POWER)
 
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	$".".queue_free()

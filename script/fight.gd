@@ -6,7 +6,7 @@ var BALL = preload("res://prefabs/ball.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$power_bar/Button.grab_focus()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
