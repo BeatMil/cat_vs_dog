@@ -6,6 +6,7 @@ extends RigidBody2D
 var POWER = Vector2(100,-800)
 
 func _ready():
+	set_bounce(1)
 	set_gravity_scale(6)
 	add_torque(5000)
 
