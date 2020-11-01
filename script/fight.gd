@@ -17,7 +17,7 @@ func _process(delta):
 	$cat.move_local_x(10 * delta)
 
 func _physics_process(delta):
-	print($dog.get_position())
+	pass
 
 
 func _on_power_bar_fire(fire_power):
