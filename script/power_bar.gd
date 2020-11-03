@@ -3,6 +3,7 @@ extends Control
 
 onready var progress = $TextureProgress
 signal fire
+var step = 50 # how fast the bar goes up
 
 func _ready():
 	progress.value = 0 # set power to 0 at start
@@ -14,7 +15,7 @@ func _on_Timer_timeout():
 	if progress.value == progress.max_value:
 		progress.value = 0
 	else:
-		progress.value += 25
+		progress.value += step
 #	progress.value += 1 if progress.value < progress.max_value else 0
 # the shorten if else is better used for assigning value
 
@@ -26,5 +27,5 @@ func _on_Button_button_up():
 	var fire_power = progress.value
 	emit_signal("fire", fire_power)
 	$Timer.stop()
-	print(fire_power)
+	print("fire_power: ",fire_power)
 	progress.value = 0
