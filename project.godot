@@ -16,8 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="cat_vs_dog"
-run/main_scene="res://scene/fight.tscn"
+config/description="turn base game"
+run/main_scene="res://scene/mainmenu.tscn"
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
 
 [display]
 
