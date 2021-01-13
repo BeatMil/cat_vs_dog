@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var this_name = $".".get_name()
+var this_name = $".".get_name() # debug
 
 
 func _ready():

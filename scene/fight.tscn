@@ -1,27 +1,28 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://prefabs/cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/dog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/fight.gd" type="Script" id=3]
-[ext_resource path="res://prefabs/ball.tscn" type="PackedScene" id=4]
-[ext_resource path="res://prefabs/power_bar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://script/p1.gd" type="Script" id=4]
 
 [node name="fight" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="ball" parent="." instance=ExtResource( 4 )]
-position = Vector2( 480, 752 )
+[node name="p1" type="Node2D" parent="."]
+rotation = 0.00286608
+script = ExtResource( 4 )
 
-[node name="power_bar" parent="." instance=ExtResource( 5 )]
-margin_left = 432.0
-margin_top = 576.0
-margin_right = 432.0
-margin_bottom = 576.0
-rect_scale = Vector2( 2, 2 )
+[node name="dog" parent="p1" instance=ExtResource( 2 )]
+position = Vector2( 177.421, 495.494 )
+scale = Vector2( 0.5, 0.5 )
 
-[node name="dog" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1504, 656 )
+[node name="ftime" type="Timer" parent="p1"]
+wait_time = 0.2
+one_shot = true
 
-[node name="cat" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1488, 192 )
-[connection signal="fire" from="power_bar" to="." method="_on_power_bar_fire"]
+[node name="p2" type="Node2D" parent="."]
+
+[node name="cat" parent="p2" instance=ExtResource( 1 )]
+position = Vector2( 1744, 432 )
+scale = Vector2( 0.5, 0.5 )
+[connection signal="timeout" from="p1/ftime" to="p1" method="_on_frame_window_timeout"]

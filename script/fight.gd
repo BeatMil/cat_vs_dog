@@ -5,10 +5,11 @@ extends Node2D
 var BALL = preload("res://prefabs/ball.tscn")
 
 func _ready():
-	$power_bar/Button.grab_focus()
-	$dog/AnimationPlayer.play("idle")
-	$cat/AnimationPlayer.play("idle")
-	$dog/sprite.set_flip_h(true)
+	# $power_bar/Button.grab_focus()
+	# $dog/AnimationPlayer.play("idle")
+	# $cat/AnimationPlayer.play("idle")
+	# $dog/sprite.set_flip_h(true)
+	pass
 
 
 func _process(delta):
