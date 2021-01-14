@@ -20,9 +20,14 @@ scale = Vector2( 0.5, 0.5 )
 wait_time = 0.2
 one_shot = true
 
+[node name="dtime" type="Timer" parent="p1"]
+wait_time = 0.1
+one_shot = true
+
 [node name="p2" type="Node2D" parent="."]
 
 [node name="cat" parent="p2" instance=ExtResource( 1 )]
 position = Vector2( 1744, 432 )
 scale = Vector2( 0.5, 0.5 )
 [connection signal="timeout" from="p1/ftime" to="p1" method="_on_frame_window_timeout"]
+[connection signal="timeout" from="p1/dtime" to="p1" method="_on_dtime_timeout"]
