@@ -23,3 +23,4 @@ func _on_power_bar_fire(fire_power):
 	ball.position = Vector2(480,750)
 	add_child(ball)
 	ball.apply_force2(fire_power)
+

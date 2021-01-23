@@ -1,19 +1,24 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://prefabs/cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/dog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/fight.gd" type="Script" id=3]
 [ext_resource path="res://script/p1.gd" type="Script" id=4]
 
+[sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 336, 10 )
+
 [node name="fight" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="p1" type="Node2D" parent="."]
+[node name="p1" type="KinematicBody2D" parent="."]
+position = Vector2( 192, 480 )
 rotation = 0.00286608
 script = ExtResource( 4 )
 
 [node name="dog" parent="p1" instance=ExtResource( 2 )]
-position = Vector2( 177.421, 495.494 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="ftime" type="Timer" parent="p1"]
@@ -24,10 +29,43 @@ one_shot = true
 wait_time = 0.1
 one_shot = true
 
+[node name="vi_up" type="VisibilityNotifier2D" parent="p1"]
+position = Vector2( -0.275146, -95.9996 )
+
+[node name="vi_down" type="VisibilityNotifier2D" parent="p1"]
+position = Vector2( 0.366852, 127.999 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="p1"]
+position = Vector2( -47.5412, 160.137 )
+shape = SubResource( 2 )
+
 [node name="p2" type="Node2D" parent="."]
+position = Vector2( 1680, 448 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="cat" parent="p2" instance=ExtResource( 1 )]
-position = Vector2( 1744, 432 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="upper_barricade" type="StaticBody2D" parent="."]
+position = Vector2( 336, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="upper_barricade"]
+shape = SubResource( 1 )
+
+[node name="lower_barricade" type="StaticBody2D" parent="."]
+position = Vector2( 336, 1072 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lower_barricade"]
+shape = SubResource( 1 )
 [connection signal="timeout" from="p1/ftime" to="p1" method="_on_frame_window_timeout"]
 [connection signal="timeout" from="p1/dtime" to="p1" method="_on_dtime_timeout"]
+[connection signal="screen_exited" from="p1/vi_up" to="p1" method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="screen_exited" from="p1/vi_down" to="p1" method="_on_vi_down_screen_exited"]

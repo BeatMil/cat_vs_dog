@@ -1,9 +1,10 @@
-extends Node2D
+extends KinematicBody2D
 
 # config
 const WALK_SPEED = 20
 
 # const
+var motion = Vector2.ZERO
 # dash
 const NEUTRAL = 0
 const UP = 1
@@ -22,17 +23,6 @@ var cwin = 0
 var ready_up = false
 var ready_down = false
 var neutral = false
-var input_history = []
-
-
-# move node and log command history
-# I think I found a better way perhaps...
-func move_and_history(speed:int,command:int):
-	move_local_y(speed)
-	if input_history.size() == 12: # no more than 8 command
-		input_history.remove(0)
-	input_history.append(command)
-	print(input_history)
 
 
 # reset the dash system variables to false
@@ -48,7 +38,6 @@ func dash():
 
 
 func _on_frame_window_timeout():
-	print("timeout")
 	comm_reset()
 
 
@@ -81,20 +70,33 @@ func _physics_process(_delta):
 				$"ftime".stop()
 				dash()
 		elif Input.is_action_pressed("p1_up"):
-			move_local_y(-WALK_SPEED)
+			# move_local_y(-WALK_SPEED)
+			motion = Vector2(0,-WALK_SPEED)
 		elif Input.is_action_pressed("p1_down"):
-			move_local_y(WALK_SPEED)
+			# move_local_y(WALK_SPEED)
+			motion = Vector2(0,WALK_SPEED)
 		elif Input.is_action_just_released("p1_down"):
 			neutral = true
 		elif Input.is_action_just_released("p1_up"):
 			neutral = true
 	elif state == DASH:
 		if ready_up:
-			move_local_y(-50)
+			# move_local_y(-50)
+			motion = Vector2(0,-50)
 		elif ready_down:
-			move_local_y(50)
+			# move_local_y(50)
+			motion = Vector2(0,50)
+	move_and_collide(motion)
 
 
 func _on_dtime_timeout():
 	comm_reset()
 	state = WALK
+
+
+func _on_VisibilityNotifier2D_screen_exited():
+	print("top ended")
+
+
+func _on_vi_down_screen_exited():
+	print("down ended")
