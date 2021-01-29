@@ -77,8 +77,10 @@ func _physics_process(_delta):
 			motion = Vector2(0,WALK_SPEED)
 		elif Input.is_action_just_released("p1_down"):
 			neutral = true
+			motion = Vector2.ZERO
 		elif Input.is_action_just_released("p1_up"):
 			neutral = true
+			motion = Vector2.ZERO
 	elif state == DASH:
 		if ready_up:
 			# move_local_y(-50)
