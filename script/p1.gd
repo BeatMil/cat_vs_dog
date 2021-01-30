@@ -52,7 +52,7 @@ func _physics_process(_delta):
 			comm_reset()
 		elif Input.is_action_just_pressed("p1_up"):
 			# when player press up the ready_up change to true
-			# and then the timer start. 
+			# and then the timer start.
 			# if playe press up again before timer runs out,
 			# player wil dash
 			if not ready_up:
