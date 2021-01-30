@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # config
-const WALK_SPEED = 20
+const WALK_SPEED = 1000
 
 # const
 var motion = Vector2.ZERO
@@ -47,17 +47,19 @@ func _ready():
 
 
 func _physics_process(_delta):
-
 	if state == WALK:
 		if Input.is_action_pressed("p1_up") and Input.is_action_pressed("p1_down"):
 			comm_reset()
 		elif Input.is_action_just_pressed("p1_up"):
+			# when player press up the ready_up change to true
+			# and then the timer start. 
+			# if playe press up again before timer runs out,
+			# player wil dash
 			if not ready_up:
 				$"ftime".start()
 				ready_up = true
 				ready_down = false
 			elif ready_up and neutral:
-				print("dash up")
 				$"ftime".stop()
 				dash()
 		elif Input.is_action_just_pressed("p1_down"):
@@ -66,7 +68,6 @@ func _physics_process(_delta):
 				ready_down = true
 				ready_up = false
 			elif ready_down and neutral:
-				print("dash down")
 				$"ftime".stop()
 				dash()
 		elif Input.is_action_pressed("p1_up"):
@@ -84,21 +85,22 @@ func _physics_process(_delta):
 	elif state == DASH:
 		if ready_up:
 			# move_local_y(-50)
-			motion = Vector2(0,-50)
+			motion = Vector2(0,-WALK_SPEED * 3)
 		elif ready_down:
 			# move_local_y(50)
-			motion = Vector2(0,50)
-	move_and_collide(motion)
+			motion = Vector2(0,WALK_SPEED * 3)
+	move_and_collide(motion * _delta)
 
 
 func _on_dtime_timeout():
 	comm_reset()
 	state = WALK
+	motion = Vector2.ZERO
 
 
 func _on_VisibilityNotifier2D_screen_exited():
-	print("top ended")
+	print("reach top")
 
 
 func _on_vi_down_screen_exited():
-	print("down ended")
+	print("reach bottom")
