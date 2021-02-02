@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://script/test_kine.gd" type="Script" id=1]
+[ext_resource path="res://script/test2.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 10 )
@@ -9,6 +10,7 @@ extents = Vector2( 16, 10 )
 extents = Vector2( 416, 10 )
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="RigidBody2D" type="KinematicBody2D" parent="."]
 position = Vector2( 208, 144 )

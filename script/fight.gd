@@ -24,3 +24,4 @@ func _on_power_bar_fire(fire_power):
 	add_child(ball)
 	ball.apply_force2(fire_power)
 
+

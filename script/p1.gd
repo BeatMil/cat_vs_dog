@@ -5,6 +5,9 @@ const WALK_SPEED = 1000
 
 # const
 var motion = Vector2.ZERO
+var is_attacking = false
+const normal_attack = preload("res://prefabs/normal_attack.tscn")
+
 # dash
 const NEUTRAL = 0
 const UP = 1
@@ -40,7 +43,13 @@ func dash():
 func _on_frame_window_timeout():
 	comm_reset()
 
-
+func spawn_normal_attack():
+	var cur_pos = $".".position
+	var attack = normal_attack.instance()
+	attack.name = "nor_atk"
+	attack.position = cur_pos
+	attack.direction = 1
+	$"..".add_child(attack)
 
 func _ready():
 	print("p1.gd")
@@ -48,8 +57,14 @@ func _ready():
 
 func _physics_process(_delta):
 	if state == WALK:
+		if Input.is_action_just_pressed("p1_attack"):
+			spawn_normal_attack()
+			$"atk_timer".start()
+		elif Input.is_action_just_released("p1_attack"):
+			$"atk_timer".stop()
 		if Input.is_action_pressed("p1_up") and Input.is_action_pressed("p1_down"):
 			comm_reset()
+			motion = Vector2.ZERO
 		elif Input.is_action_just_pressed("p1_up"):
 			# when player press up the ready_up change to true
 			# and then the timer start.
@@ -98,9 +113,5 @@ func _on_dtime_timeout():
 	motion = Vector2.ZERO
 
 
-func _on_VisibilityNotifier2D_screen_exited():
-	print("reach top")
-
-
-func _on_vi_down_screen_exited():
-	print("reach bottom")
+func _on_atk_timer_timeout():
+	spawn_normal_attack()
