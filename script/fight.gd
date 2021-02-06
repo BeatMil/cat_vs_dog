@@ -12,7 +12,7 @@ func _ready():
 	pass
 
 
-func _process(delta):
+func _process(_delta):
 	# always times delta
 	# $dog.move_local_x(-10 * delta) # move dog
 	pass
@@ -25,3 +25,8 @@ func _on_power_bar_fire(fire_power):
 	ball.apply_force2(fire_power)
 
 
+
+
+func _on_hp_bar_value_changed(value):
+	if value <= 0:
+		get_tree().change_scene("res://scene/fight.tscn")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://prefabs/character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://media/dog/dog_hurt.png" type="Texture" id=3]
+
+[node name="dog" instance=ExtResource( 2 )]
+
+[node name="sprite" parent="." index="0"]
+texture = ExtResource( 3 )

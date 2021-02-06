@@ -37,64 +37,65 @@ func comm_reset():
 
 func dash():
 	state = DASH
-	$"dtime".start()
+	$"dtime2".start()
 
-
-func _on_frame_window_timeout():
-	comm_reset()
 
 func spawn_normal_attack():
 	var cur_pos = $".".position
 	var attack = normal_attack.instance()
 	attack.name = "nor_atk"
-	attack.position = cur_pos + Vector2(100,0) # spawn infront
-	attack.direction = 1
+	if get_parent().name == "P2":
+		attack.direction = -1
+		attack.position = cur_pos + Vector2(-100,0) # spawn infront
+	else:
+		attack.direction = 1
+		attack.position = cur_pos + Vector2(100,0) # spawn infront
 	$"..".add_child(attack)
 
 func _ready():
-	print("p1.gd")
+	print("p2.gd")
 
 
 func _physics_process(_delta):
 	if state == WALK:
-		if Input.is_action_just_pressed("p1_attack"):
+		if Input.is_action_just_pressed("p2_attack"):
 			spawn_normal_attack()
-			$"atk_timer".start()
-		elif Input.is_action_just_released("p1_attack"):
-			$"atk_timer".stop()
-		if Input.is_action_pressed("p1_up") and Input.is_action_pressed("p1_down"):
+			$"atk_timer2".start()
+		elif Input.is_action_just_released("p2_attack"):
+			$"atk_timer2".stop()
+		if Input.is_action_pressed("p2_up") and Input.is_action_pressed("p2_down"):
 			comm_reset()
 			motion = Vector2.ZERO
-		elif Input.is_action_just_pressed("p1_up"):
+		elif Input.is_action_just_pressed("p2_up"):
 			# when player press up the ready_up change to true
 			# and then the timer start.
 			# if playe press up again before timer runs out,
 			# player wil dash
 			if not ready_up:
-				$"ftime".start()
+				$"ftime2".start()
 				ready_up = true
 				ready_down = false
 			elif ready_up and neutral:
-				$"ftime".stop()
+				$"ftime2".stop()
 				dash()
-		elif Input.is_action_just_pressed("p1_down"):
+		elif Input.is_action_just_pressed("p2_down"):
 			if not ready_down:
-				$"ftime".start()
+				$"ftime2".start()
 				ready_down = true
 				ready_up = false
 			elif ready_down and neutral:
-				$"ftime".stop()
+				$"ftime2".stop()
 				dash()
-		elif Input.is_action_pressed("p1_up"):
+		elif Input.is_action_pressed("p2_up"):
 			# move_local_y(-WALK_SPEED)
 			motion = Vector2(0,-WALK_SPEED)
-		elif Input.is_action_pressed("p1_down"):
+		elif Input.is_action_pressed("p2_down"):
 			# move_local_y(WALK_SPEED)
 			motion = Vector2(0,WALK_SPEED)
-		elif Input.is_action_just_released("p1_down"):
+		elif Input.is_action_just_released("p2_down"):
 			neutral = true
 			motion = Vector2.ZERO
-		elif Input.is_action_just_released("p1_up"):
+		elif Input.is_action_just_released("p2_up"):
 			neutral = true
 			motion = Vector2.ZERO
 	elif state == DASH:
@@ -109,11 +110,15 @@ func _physics_process(_delta):
 	move_and_collide(motion * _delta) 
 
 
-func _on_dtime_timeout():
+func _on_ftime2_timeout():
+	comm_reset()
+
+
+func _on_dtime2_timeout():
 	comm_reset()
 	state = WALK
 	motion = Vector2.ZERO
 
 
-func _on_atk_timer_timeout():
+func _on_atk_timer2_timeout():
 	spawn_normal_attack()
