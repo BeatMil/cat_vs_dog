@@ -20,6 +20,10 @@ func reset_gauge():
 	value = 0
 
 func _on_gauge_bar_timer_timeout():
-	value += step
+	# stop charging go beyond mp_bar
+	if value >= get_parent().value:
+		pass
+	else:
+		value += step
 
 
