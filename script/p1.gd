@@ -28,28 +28,6 @@ var ready_down = false
 var neutral = false
 
 
-# reset the dash system variables to false
-func comm_reset():
-	ready_up = false
-	ready_down = false
-	neutral = false
-
-
-func dash():
-	state = DASH
-	$"dtime".start()
-
-
-func _on_frame_window_timeout():
-	comm_reset()
-
-func spawn_normal_attack():
-	var cur_pos = $".".position
-	var attack = normal_attack.instance()
-	attack.name = "nor_atk"
-	attack.position = cur_pos + Vector2(100,0) # spawn infront
-	attack.direction = 1
-	$"..".add_child(attack)
 
 func _ready():
 	print("p1.gd")
@@ -58,9 +36,13 @@ func _ready():
 func _physics_process(_delta):
 	if state == WALK:
 		if Input.is_action_just_pressed("p1_attack"):
+			$"../mp_bar/gauge_bar".start_gauge() # mp gauge bar
+
+			# these two go together
 			spawn_normal_attack()
 			$"atk_timer".start()
 		elif Input.is_action_just_released("p1_attack"):
+			$"../mp_bar/gauge_bar".reset_gauge()
 			$"atk_timer".stop()
 		if Input.is_action_pressed("p1_up") and Input.is_action_pressed("p1_down"):
 			comm_reset()
@@ -106,7 +88,7 @@ func _physics_process(_delta):
 			motion = Vector2(0,WALK_SPEED * 3)
 
 	# I have no idea how to get rid of this warning
-	move_and_collide(motion * _delta) 
+	move_and_collide(motion * _delta)
 
 
 func _on_dtime_timeout():
@@ -117,3 +99,28 @@ func _on_dtime_timeout():
 
 func _on_atk_timer_timeout():
 	spawn_normal_attack()
+
+
+# reset the dash system variables to false
+func comm_reset():
+	ready_up = false
+	ready_down = false
+	neutral = false
+
+
+func dash():
+	state = DASH
+	$"dtime".start()
+
+
+func _on_frame_window_timeout():
+	comm_reset()
+
+
+func spawn_normal_attack():
+	var cur_pos = $".".position
+	var attack = normal_attack.instance()
+	attack.name = "nor_atk"
+	attack.position = cur_pos + Vector2(100,0) # spawn infront
+	attack.direction = 1
+	$"..".add_child(attack)

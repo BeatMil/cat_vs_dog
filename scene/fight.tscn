@@ -1,19 +1,34 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://prefabs/character/cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefabs/character/dog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/fight.gd" type="Script" id=3]
 [ext_resource path="res://script/p1.gd" type="Script" id=4]
-[ext_resource path="res://prefabs/normal_attack.tscn" type="PackedScene" id=5]
+[ext_resource path="res://script/gauge_bar.gd" type="Script" id=5]
 [ext_resource path="res://script/p2.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1008, 10 )
 
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.815686, 0.0980392, 0.0980392, 1 )
+
 [sub_resource type="DynamicFont" id=2]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.113725, 0.447059, 0.576471, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.329412, 0.682353, 0.643137, 0.694118 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+draw_center = false
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 95.9996 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.917647, 0.207843, 0.207843, 1 )
 
 [node name="fight" type="Node2D"]
 script = ExtResource( 3 )
@@ -45,9 +60,10 @@ shape = SubResource( 1 )
 [node name="P1" type="Node2D" parent="."]
 
 [node name="hp_bar" type="ProgressBar" parent="P1"]
-margin_top = 16.0001
-margin_right = 624.0
-margin_bottom = 64.0001
+margin_top = 16.0
+margin_right = 640.0
+margin_bottom = 64.0
+custom_styles/fg = SubResource( 6 )
 custom_fonts/font = SubResource( 2 )
 max_value = 10.0
 step = 1.0
@@ -55,6 +71,34 @@ value = 10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="mp_bar" type="ProgressBar" parent="P1"]
+margin_top = 80.0
+margin_right = 640.0
+margin_bottom = 128.0
+custom_styles/fg = SubResource( 8 )
+max_value = 120.0
+value = 60.0
+percent_visible = false
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="gauge_bar" type="ProgressBar" parent="P1/mp_bar"]
+margin_right = 640.0
+margin_bottom = 48.0
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 10 )
+step = 0.6
+percent_visible = false
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gauge_bar_timer" type="Timer" parent="P1/mp_bar/gauge_bar"]
+wait_time = 0.01
 
 [node name="p1" type="KinematicBody2D" parent="P1"]
 position = Vector2( 144, 512 )
@@ -69,7 +113,7 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="shape" type="CollisionShape2D" parent="P1/p1"]
 position = Vector2( -127.954, 16.3668 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="ftime" type="Timer" parent="P1/p1"]
 wait_time = 0.2
@@ -87,9 +131,10 @@ wait_time = 0.2
 [node name="hp_bar" type="ProgressBar" parent="P2"]
 margin_left = 1920.0
 margin_top = 64.0
-margin_right = 2544.0
+margin_right = 2562.0
 margin_bottom = 112.0
 rect_rotation = 180.0
+custom_styles/fg = SubResource( 7 )
 custom_fonts/font = SubResource( 2 )
 max_value = 10.0
 step = 1.0
@@ -111,7 +156,7 @@ scale = Vector2( 0.5, 0.5 )
 [node name="shape2" type="CollisionShape2D" parent="P2/p2"]
 position = Vector2( 96, 16 )
 rotation = 0.00286608
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="ftime2" type="Timer" parent="P2/p2"]
 wait_time = 0.2
@@ -123,11 +168,8 @@ one_shot = true
 
 [node name="atk_timer2" type="Timer" parent="P2/p2"]
 wait_time = 0.2
-
-[node name="normal_attack" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1392, 512 )
-direction = -1
 [connection signal="value_changed" from="P1/hp_bar" to="." method="_on_hp_bar_value_changed"]
+[connection signal="timeout" from="P1/mp_bar/gauge_bar/gauge_bar_timer" to="P1/mp_bar/gauge_bar" method="_on_gauge_bar_timer_timeout"]
 [connection signal="timeout" from="P1/p1/ftime" to="P1/p1" method="_on_frame_window_timeout"]
 [connection signal="timeout" from="P1/p1/dtime" to="P1/p1" method="_on_dtime_timeout"]
 [connection signal="timeout" from="P1/p1/atk_timer" to="P1/p1" method="_on_atk_timer_timeout"]
