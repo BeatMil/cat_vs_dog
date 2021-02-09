@@ -182,4 +182,9 @@ func _on_recovery_timer_timeout():
 
 func _on_start_up_timer_timeout():
 	spawn_blaster_attack()
+	$"cha".set_invincible(false)
 	state = WALK
+
+
+func _on_mp_fill_timer_timeout():
+	$"../mp_bar".value += $"../mp_bar".step

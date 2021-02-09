@@ -78,7 +78,8 @@ margin_right = 640.0
 margin_bottom = 128.0
 custom_styles/fg = SubResource( 4 )
 max_value = 120.0
-value = 120.0
+step = 0.1
+value = 60.0
 percent_visible = false
 __meta__ = {
 "_edit_group_": true,
@@ -99,6 +100,10 @@ __meta__ = {
 
 [node name="gauge_bar_timer" type="Timer" parent="P1/mp_bar/gauge_bar"]
 wait_time = 0.01
+
+[node name="mp_fill_timer" type="Timer" parent="P1/mp_bar"]
+wait_time = 0.01
+autostart = true
 
 [node name="p1" type="KinematicBody2D" parent="P1"]
 position = Vector2( 144, 512 )
@@ -121,12 +126,13 @@ wait_time = 0.1
 one_shot = true
 
 [node name="atk_timer" type="Timer" parent="P1/p1"]
-wait_time = 0.8
+wait_time = 2.0
 
 [node name="recovery_timer" type="Timer" parent="P1/p1"]
 wait_time = 0.5
 
 [node name="console" type="Label" parent="P1/p1"]
+visible = false
 margin_left = -96.7333
 margin_top = -255.724
 margin_right = -20.7333
@@ -167,7 +173,8 @@ margin_bottom = 176.0
 rect_rotation = 180.0
 custom_styles/fg = SubResource( 4 )
 max_value = 120.0
-value = 120.0
+step = 0.1
+value = 60.0
 percent_visible = false
 __meta__ = {
 "_edit_group_": true,
@@ -189,6 +196,10 @@ __meta__ = {
 [node name="gauge_bar_timer" type="Timer" parent="P2/mp_bar/gauge_bar"]
 wait_time = 0.01
 
+[node name="mp_fill_timer" type="Timer" parent="P2/mp_bar"]
+wait_time = 0.01
+autostart = true
+
 [node name="p2" type="KinematicBody2D" parent="P2"]
 position = Vector2( 1808, 512 )
 script = ExtResource( 6 )
@@ -196,7 +207,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="cat" parent="P2/p2" instance=ExtResource( 1 )]
+[node name="cha" parent="P2/p2" instance=ExtResource( 1 )]
 scale = Vector2( 0.5, 0.5 )
 
 [node name="shape2" type="CollisionShape2D" parent="P2/p2"]
@@ -213,12 +224,13 @@ wait_time = 0.1
 one_shot = true
 
 [node name="atk_timer" type="Timer" parent="P2/p2"]
-wait_time = 0.8
+wait_time = 2.0
 
 [node name="recovery_timer" type="Timer" parent="P2/p2"]
 wait_time = 0.5
 
 [node name="console" type="Label" parent="P2/p2"]
+visible = false
 margin_left = -32.0
 margin_top = -144.0
 margin_right = 64.0
@@ -227,6 +239,13 @@ text = "beat"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="gauge2_atk" type="Node2D" parent="P2/p2"]
+position = Vector2( -1664, 0 )
+rotation = 0.00286608
+
+[node name="start_up_timer" type="Timer" parent="P2/p2/gauge2_atk"]
+one_shot = true
 
 [node name="gauge_line" type="Node2D" parent="."]
 __meta__ = {
@@ -264,6 +283,7 @@ position = Vector2( 352, 0 )
 points = PoolVector2Array( 128, 80, 128, 128 )
 [connection signal="value_changed" from="P1/hp_bar" to="." method="_on_hp_bar_value_changed"]
 [connection signal="timeout" from="P1/mp_bar/gauge_bar/gauge_bar_timer" to="P1/mp_bar/gauge_bar" method="_on_gauge_bar_timer_timeout"]
+[connection signal="timeout" from="P1/mp_bar/mp_fill_timer" to="P1/p1" method="_on_mp_fill_timer_timeout"]
 [connection signal="timeout" from="P1/p1/ftime" to="P1/p1" method="_on_frame_window_timeout"]
 [connection signal="timeout" from="P1/p1/dtime" to="P1/p1" method="_on_dtime_timeout"]
 [connection signal="timeout" from="P1/p1/atk_timer" to="P1/p1" method="_on_atk_timer_timeout"]
@@ -271,7 +291,9 @@ points = PoolVector2Array( 128, 80, 128, 128 )
 [connection signal="timeout" from="P1/p1/gauge2_atk/start_up_timer" to="P1/p1" method="_on_start_up_timer_timeout"]
 [connection signal="value_changed" from="P2/hp_bar" to="." method="_on_hp_bar_value_changed"]
 [connection signal="timeout" from="P2/mp_bar/gauge_bar/gauge_bar_timer" to="P2/mp_bar/gauge_bar" method="_on_gauge_bar_timer_timeout"]
+[connection signal="timeout" from="P2/mp_bar/mp_fill_timer" to="P2/p2" method="_on_mp_fill_timer_timeout"]
 [connection signal="timeout" from="P2/p2/ftime" to="P2/p2" method="_on_ftime_timeout"]
 [connection signal="timeout" from="P2/p2/dtime" to="P2/p2" method="_on_dtime_timeout"]
 [connection signal="timeout" from="P2/p2/atk_timer" to="P2/p2" method="_on_atk_timer_timeout"]
 [connection signal="timeout" from="P2/p2/recovery_timer" to="P2/p2" method="_on_recovery_timer_timeout"]
+[connection signal="timeout" from="P2/p2/gauge2_atk/start_up_timer" to="P2/p2" method="_on_start_up_timer_timeout"]
