@@ -105,7 +105,7 @@ position = Vector2( 144, 512 )
 rotation = 0.00286608
 script = ExtResource( 4 )
 
-[node name="dog" parent="P1/p1" instance=ExtResource( 2 )]
+[node name="cha" parent="P1/p1" instance=ExtResource( 2 )]
 scale = Vector2( 0.5, 0.5 )
 
 [node name="shape" type="CollisionShape2D" parent="P1/p1"]
@@ -121,21 +121,26 @@ wait_time = 0.1
 one_shot = true
 
 [node name="atk_timer" type="Timer" parent="P1/p1"]
-wait_time = 0.2
+wait_time = 0.8
 
 [node name="recovery_timer" type="Timer" parent="P1/p1"]
 wait_time = 0.5
 
 [node name="console" type="Label" parent="P1/p1"]
-margin_left = -96.7792
-margin_top = -271.724
-margin_right = -20.7792
-margin_bottom = -223.724
+margin_left = -96.7333
+margin_top = -255.724
+margin_right = -20.7333
+margin_bottom = -207.724
 rect_scale = Vector2( 3, 3 )
 text = "beat yeah"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="gauge2_atk" type="Node2D" parent="P1/p1"]
+
+[node name="start_up_timer" type="Timer" parent="P1/p1/gauge2_atk"]
+one_shot = true
 
 [node name="P2" type="Node2D" parent="."]
 
@@ -208,7 +213,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="atk_timer" type="Timer" parent="P2/p2"]
-wait_time = 0.2
+wait_time = 0.8
 
 [node name="recovery_timer" type="Timer" parent="P2/p2"]
 wait_time = 0.5
@@ -222,12 +227,48 @@ text = "beat"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="gauge_line" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Line2D" type="Line2D" parent="gauge_line"]
+position = Vector2( 32, 0 )
+points = PoolVector2Array( 128, 80, 128, 128 )
+
+[node name="Line2D2" type="Line2D" parent="gauge_line"]
+position = Vector2( 192, 0 )
+points = PoolVector2Array( 128, 80, 128, 128 )
+
+[node name="Line2D3" type="Line2D" parent="gauge_line"]
+position = Vector2( 352, 0 )
+points = PoolVector2Array( 128, 80, 128, 128 )
+
+[node name="gauge_line2" type="Node2D" parent="."]
+position = Vector2( 1280, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Line2D" type="Line2D" parent="gauge_line2"]
+position = Vector2( 32, 0 )
+points = PoolVector2Array( 128, 80, 128, 128 )
+
+[node name="Line2D2" type="Line2D" parent="gauge_line2"]
+position = Vector2( 192, 0 )
+points = PoolVector2Array( 128, 80, 128, 128 )
+
+[node name="Line2D3" type="Line2D" parent="gauge_line2"]
+position = Vector2( 352, 0 )
+points = PoolVector2Array( 128, 80, 128, 128 )
 [connection signal="value_changed" from="P1/hp_bar" to="." method="_on_hp_bar_value_changed"]
 [connection signal="timeout" from="P1/mp_bar/gauge_bar/gauge_bar_timer" to="P1/mp_bar/gauge_bar" method="_on_gauge_bar_timer_timeout"]
 [connection signal="timeout" from="P1/p1/ftime" to="P1/p1" method="_on_frame_window_timeout"]
 [connection signal="timeout" from="P1/p1/dtime" to="P1/p1" method="_on_dtime_timeout"]
 [connection signal="timeout" from="P1/p1/atk_timer" to="P1/p1" method="_on_atk_timer_timeout"]
 [connection signal="timeout" from="P1/p1/recovery_timer" to="P1/p1" method="_on_recovery_timer_timeout"]
+[connection signal="timeout" from="P1/p1/gauge2_atk/start_up_timer" to="P1/p1" method="_on_start_up_timer_timeout"]
 [connection signal="value_changed" from="P2/hp_bar" to="." method="_on_hp_bar_value_changed"]
 [connection signal="timeout" from="P2/mp_bar/gauge_bar/gauge_bar_timer" to="P2/mp_bar/gauge_bar" method="_on_gauge_bar_timer_timeout"]
 [connection signal="timeout" from="P2/p2/ftime" to="P2/p2" method="_on_ftime_timeout"]

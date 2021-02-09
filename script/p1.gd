@@ -8,6 +8,7 @@ var motion = Vector2.ZERO
 var is_attacking = false
 const normal_attack = preload("res://prefabs/normal_attack.tscn")
 const sniper_attack = preload("res://prefabs/sniper_attack.tscn")
+const blaster_attack = preload("res://prefabs/blaster_attack.tscn")
 
 # dash
 const NEUTRAL = 0
@@ -20,6 +21,7 @@ var state = 0 # set intial state to walk
 const WALK = 0
 const DASH = 1
 const RECOVERY = 2
+const INVIN = 3
 
 
 # input history
@@ -35,8 +37,9 @@ func _ready():
 	print("p1.gd")
 
 func _input(_event):
-	if Input.is_action_just_pressed("sniper"):
-		spawn_sniper_attack()
+	# if Input.is_action_just_pressed("sniper"):
+	# 	spawn_sniper_attack()
+	pass
 
 func _process(_delta):
 	# $"console".text = String($"dtime".time_left)
@@ -55,9 +58,12 @@ func _physics_process(_delta):
 			spawn_normal_attack()
 			$"atk_timer".start()
 		elif Input.is_action_just_released("p1_attack"):
-
-			# gauge attack
-			if $"../mp_bar/gauge_bar".value >= 30:
+			# GAUGE ATTACK
+			if $"../mp_bar/gauge_bar".value >= 60:
+				$"../mp_bar".value -= 60
+				state = INVIN
+				$"gauge2_atk/start_up_timer".start()
+			elif $"../mp_bar/gauge_bar".value >= 30:
 				$"../mp_bar".value -= 30
 				spawn_sniper_attack()
 
@@ -107,6 +113,10 @@ func _physics_process(_delta):
 			motion = Vector2(0,WALK_SPEED * 3)
 	elif state == RECOVERY:
 		motion = Vector2.ZERO
+	elif state == INVIN:
+		motion = Vector2.ZERO
+		$"cha".set_invincible(true)
+
 
 	# I have no idea how to get rid of this warning
 	move_and_collide(motion * _delta)
@@ -155,7 +165,21 @@ func spawn_sniper_attack():
 	$"..".add_child(attack)
 
 
+func spawn_blaster_attack():
+	var cur_pos = $".".position
+	var attack = blaster_attack.instance()
+	attack.name = "bla_atk"
+	attack.position = cur_pos + Vector2(1000,0) # spawn infront
+	# attack.direction = 1
+	$"..".add_child(attack)
+
+
 func _on_recovery_timer_timeout():
 	comm_reset()
 	state = WALK
 	$"recovery_timer".stop()
+
+
+func _on_start_up_timer_timeout():
+	spawn_blaster_attack()
+	state = WALK
