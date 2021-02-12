@@ -24,4 +24,15 @@ margin_bottom = 544.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 608.0
+margin_top = 192.0
+margin_right = 648.0
+margin_bottom = 206.0
+rect_scale = Vector2( 15.1, 7.3 )
+text = "key"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_down" from="Button" to="." method="_on_Button_button_down"]

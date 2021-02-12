@@ -8,16 +8,22 @@ var helper_A = false
 func _ready():
 	pass # Replace with function body.
 
+
+
+func _process(delta):
+	$Label2.text = String(helper_A)
+	if Input.is_action_just_pressed("beat"):
+		print("beat_yay")
+
+
 func _input(event):
 	if helper_A:
-		if event.is_pressed() is InputEventKey:
-			$"Label".text = event.as_text()
-		helper_A = false
+		if event is InputEventKey:
+			if event.is_pressed():
+				$Label.text = event.as_text()
+				InputMap.action_add_event("beat",event)
+				helper_A = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 func _on_Button_button_down():
-	print("beat")
 	helper_A = true
