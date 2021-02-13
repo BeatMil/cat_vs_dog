@@ -1,0 +1,279 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://media/font/PixelOperator8.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://font/PixelOperator8.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://script/key_config.gd" type="Script" id=3]
+[ext_resource path="res://script/Button.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 80
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
+font_data = ExtResource( 2 )
+
+[node name="key_config" type="Node2D"]
+
+[node name="p1_up" type="Node2D" parent="."]
+scale = Vector2( 0.6, 0.7 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="p1_up"]
+margin_left = 160.0
+margin_top = 128.0
+margin_right = 620.0
+margin_bottom = 272.0
+custom_fonts/font = SubResource( 1 )
+text = "P1 UP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="p1_up"]
+margin_left = 1120.0
+margin_top = 112.0
+margin_right = 1472.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="screen" type="Label" parent="p1_up/Button"]
+margin_right = 352.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 2 )
+text = "test"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="p1_down" type="Node2D" parent="."]
+position = Vector2( 0, 224 )
+scale = Vector2( 0.6, 0.7 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="p1_down"]
+margin_left = 160.0
+margin_top = 128.0
+margin_right = 620.0
+margin_bottom = 272.0
+custom_fonts/font = SubResource( 1 )
+text = "P1 DOWN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="p1_down"]
+margin_left = 1120.0
+margin_top = 96.0
+margin_right = 1472.0
+margin_bottom = 224.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="screen" type="Label" parent="p1_down/Button"]
+margin_right = 352.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 2 )
+text = "test"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="p1_attack" type="Node2D" parent="."]
+position = Vector2( 0, 464 )
+scale = Vector2( 0.6, 0.7 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="p1_attack"]
+margin_left = 160.0
+margin_top = 128.0
+margin_right = 620.0
+margin_bottom = 272.0
+custom_fonts/font = SubResource( 1 )
+text = "P1 ATTACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="p1_attack"]
+margin_left = 1120.0
+margin_top = 80.0
+margin_right = 1472.0
+margin_bottom = 208.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="screen" type="Label" parent="p1_attack/Button"]
+margin_right = 352.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 2 )
+text = "test"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="p2_up" type="Node2D" parent="."]
+position = Vector2( 944, 0 )
+scale = Vector2( 0.6, 0.7 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="p2_up"]
+margin_left = 160.0
+margin_top = 128.0
+margin_right = 620.0
+margin_bottom = 272.0
+custom_fonts/font = SubResource( 1 )
+text = "P2 UP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="p2_up"]
+margin_left = 1120.0
+margin_top = 112.0
+margin_right = 1472.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="screen" type="Label" parent="p2_up/Button"]
+margin_right = 352.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 2 )
+text = "test"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="p2_down" type="Node2D" parent="."]
+position = Vector2( 944, 224 )
+scale = Vector2( 0.6, 0.7 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="p2_down"]
+margin_left = 160.0
+margin_top = 128.0
+margin_right = 620.0
+margin_bottom = 272.0
+custom_fonts/font = SubResource( 1 )
+text = "P2 DOWN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="p2_down"]
+margin_left = 1120.0
+margin_top = 96.0
+margin_right = 1472.0
+margin_bottom = 224.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="screen" type="Label" parent="p2_down/Button"]
+margin_right = 352.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 2 )
+text = "test"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="p2_attack" type="Node2D" parent="."]
+position = Vector2( 944, 448 )
+scale = Vector2( 0.6, 0.7 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="p2_attack"]
+margin_left = 160.0
+margin_top = 128.0
+margin_right = 620.0
+margin_bottom = 272.0
+custom_fonts/font = SubResource( 1 )
+text = "P2 ATTACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="p2_attack"]
+margin_left = 1120.0
+margin_top = 80.0
+margin_right = 1472.0
+margin_bottom = 208.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="screen" type="Label" parent="p2_attack/Button"]
+margin_right = 352.0
+margin_bottom = 128.0
+custom_fonts/font = SubResource( 2 )
+text = "test"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 720.0
+margin_top = 864.0
+margin_right = 944.0
+margin_bottom = 944.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+scene = "res://scene/mainmenu.tscn"
+
+[node name="Label" type="Label" parent="Button"]
+margin_right = 224.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 3 )
+text = "BACK"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1072.0
+color = Color( 0.164706, 0.160784, 0.160784, 0.823529 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_down" from="p1_up/Button" to="p1_up" method="_on_Button_button_down"]
+[connection signal="button_down" from="p1_down/Button" to="p1_down" method="_on_Button_button_down"]
+[connection signal="button_down" from="p1_attack/Button" to="p1_attack" method="_on_Button_button_down"]
+[connection signal="button_down" from="p2_up/Button" to="p2_up" method="_on_Button_button_down"]
+[connection signal="button_down" from="p2_down/Button" to="p2_down" method="_on_Button_button_down"]
+[connection signal="button_down" from="p2_attack/Button" to="p2_attack" method="_on_Button_button_down"]
+[connection signal="button_down" from="Button" to="Button" method="_on_Button_button_down"]
